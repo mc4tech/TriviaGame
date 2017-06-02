@@ -3,7 +3,7 @@ $(document).ready(function() {
     //Hides the next button when page is loaded.
     $("#next").hide();
 	//set number counter to 30 for timer
-	var number = 3;
+	var number = 31;
 
 	//  Variable that will hold our interval ID when we execute
     //  the "startGame" function
@@ -79,7 +79,7 @@ $(document).ready(function() {
 		$("#showTimer").html("<h2>Time Remaining: " + number + "</h2>");
 
 		//If the number reaches zero...
-		if (number === 0) {
+		if (number === -1) {
 
 			//...run the stop function.
 			stop();
@@ -109,6 +109,7 @@ $(document).ready(function() {
 		    
 		    var radioButtons = createRadios(index);
 		    qElement.append(radioButtons);
+		    // quiz.append(qElement);
 		    
 		    return qElement;
 		}
@@ -122,7 +123,7 @@ $(document).ready(function() {
 	    
 	    for (var i = 0; i < questions[i].choices.length; i++) {
 	      item = $('<li>');
-	      input = '<input type="radio" name="answer" value=' + i + ' />';
+	      input = '<input id="choices[i] "type="radio" name="answer" value=' + i + ' />';
 	      input += questions[index].choices[i];
 	      item.append(input);
 	      radioList.append(item);

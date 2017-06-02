@@ -22,7 +22,7 @@ p {
 }
 .jumbotron{
     text-align: center;
-    height: 500px;
+    /*height: 500px;*/
 }
 #title{
     background: rgb(99,129,135);
@@ -33,6 +33,14 @@ p {
 
 #next a{
     color: red;
+}
+
+#quiz  {
+    color: red;
+}
+
+#quiz p{
+    color:gold;
 }
 
 body {
