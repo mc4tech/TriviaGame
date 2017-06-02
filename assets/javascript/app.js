@@ -49,7 +49,7 @@ $(document).ready(function() {
 	}];
 
 
-
+	
 
 
 
@@ -59,8 +59,9 @@ $(document).ready(function() {
 		$("#firstPage").hide();
 		$("#next").show();
 		startGame();
-		// createQuestionElement();
-		createRadios();
+		displayNext();
+		// createQuestionElement(0);
+		// createRadios(0);
 	});
 
 	 //  The run function sets an interval
@@ -94,22 +95,24 @@ $(document).ready(function() {
 	}
 	// Creates and returns the div that contains the questions and 
 	// the answer selections
-	// function createQuestionElement(index) {
-	//     var qElement = $('<div>', {
-	//         id: 'question'
-	//     });
-	    
-	//     var header = $('<h2>Question ' + (index + 1) + ':</h2>');
-	//     qElement.append(header);
-	    
-	//     var question = $('<p>').append(questions[index].question);
-	//     qElement.append(question);
-	    
-	//     var radioButtons = createRadios(index);
-	//     qElement.append(radioButtons);
-	    
-	//     return qElement;
-	//   }
+	function createQuestionElement(index) {
+	    for(var i = 0; i < questions.length; i++) {
+		    var qElement = $('<div>', {
+		        id: 'question'+ index
+		    });
+		    
+		    var header = $('<h2>Question ' + (index + 1) + ':</h2>');
+		    qElement.append(header);
+		    
+		    var question = $('<p>').append(questions[index].question);
+		    qElement.append(question);
+		    
+		    var radioButtons = createRadios(index);
+		    qElement.append(radioButtons);
+		    
+		    return qElement;
+		}
+	  }
 	  
 	// Creates a list of the answer choices as radio inputs
 	function createRadios(index) {
@@ -120,12 +123,27 @@ $(document).ready(function() {
 	    for (var i = 0; i < questions[i].choices.length; i++) {
 	      item = $('<li>');
 	      input = '<input type="radio" name="answer" value=' + i + ' />';
-	      input += questions.choices[i];
+	      input += questions[index].choices[i];
 	      item.append(input);
 	      radioList.append(item);
 	    }
 	    return radioList;
 	  }
 
+	// Displays next requested element
+	function displayNext() {
+	    quiz.fadeOut(function() {
+	    // $('#question').remove();
+	    for (var i = 0; i < questions.length; i++) {
+		    if(questionCounter < questions.length){
+		        var nextQuestion = createQuestionElement(i);
+		        quiz.append(nextQuestion).fadeIn();
+		        if (!(isNaN(selections[questionCounter]))) {
+		          $('input[value='+selections[questionCounter]+']').prop('checked', true);
+	        	}
+	        }
+	    }
+	    });
+	}
 
 });
